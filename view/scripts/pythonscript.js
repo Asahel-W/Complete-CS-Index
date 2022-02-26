@@ -12,7 +12,7 @@ var getModules = function () {
         changeDiv.innerHTML = "<h1>Loading</h1>";
     }
 
-    xmlhttp.response.onload = function (){
+    xmlhttp.onload = function (){
         changeDiv.innerHTML = "<h1>Opened PHP and JS</h1>";
     }
     
