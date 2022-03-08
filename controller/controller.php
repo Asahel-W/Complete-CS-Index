@@ -38,18 +38,36 @@ class passwordMaker {
     }
 }
 
+if (isset($_GET["logout"])){
+    $_SESSION["LOGGED"] = false;
+    session_destroy();
+    header("Location: ../view/index.php");
+}
 
-if (isset($_POST["password2"])) {
+if (isset($_GET["register"]) && $_GET["register"] == true) {
     if ($_POST["password2"] == $_POST["password"]) {
         if ($theDBA->createUser($_POST["username"], new passwordMaker($_POST["password"]), $_POST["email"])) {
-            echo 'new user created';
-            $_SESSION['LOGGED'] = TRUE;
-            header("Location: ../view/index.html");
+            $_SESSION['LOGGED'] = FALSE;
+            header("Location: ../view/login.php");
         } else {
-            echo 'emial is already in use';
+            $_SESSION['registerError']='emial is already in use';
+            header("Location: ../view/newUser.php");
         }
     } else {
-        echo 'passwords are not the same';
+        $_SESSION['registerError']= 'passwords are not the same';
+        header("Location: ../view/newUser.php");
+    }
+}
+
+
+if (isset($_POST["login"])) {
+    echo 'login controller';
+    if ($theDBA->login($_POST["email"] , $_POST["password"])){
+        $_SESSION['LOGGED'] = TRUE;
+        header("Location: ../view/index.php");
+    } else {
+        $_SESSION['loginError'] = 'incorrect email or password';
+        header("Location: ../view/login.php");
     }
 }
 

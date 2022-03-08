@@ -31,7 +31,18 @@ class DataBaseAdapter {
         } catch (PDOException $e) {
             return FALSE;
         }
-        //printf("%d row inserted.\n", $stmt->affected_rows);
+    }
+
+    public function login($email, $pw){
+        $stmt = $this->DB->prepare ( "SELECT * FROM user");
+        $stmt->execute ();
+        $array = $stmt->fetchAll ( PDO::FETCH_ASSOC );
+        for ($row = 0; $row<count($array); $row++){
+            if (password_verify($pw, $array[$row]['password']) && $array[$row]['email'] == $email){
+                return true;
+            }
+        }
+        return false;
     }
 }
 ?>

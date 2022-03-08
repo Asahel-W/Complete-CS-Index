@@ -1,9 +1,10 @@
-var createAccount = document.getElementById("login");
+var createAccount = document.getElementById("create");
 
-var goToLogin = function () {
-    console.log("login");
+var goToCreateAccount = function () {
+    var username = document.getElementById("username");
     var email = document.getElementById("email");
     var password = document.getElementById("password");
+    var password2 = document.getElementById("password2");
     const xmlhttp = new XMLHttpRequest();
     
     xmlhttp.open("POST", new URL("http://localhost/Complete-CS-Index/controller/controller.php"), true);
@@ -14,7 +15,7 @@ var goToLogin = function () {
             //alert(xmlhttp.responseText);
         }
     }
-    xmlhttp.send("email="+email.value+"&password="+password.value+"&login=true");
+    xmlhttp.send("password2="+password2.value+"&username="+username.value+"&email="+email.value+"&password="+password.value);
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.status == 200 && xmlhttp.readyState == 4){
             console.log(xmlhttp.responseText);
@@ -24,4 +25,4 @@ var goToLogin = function () {
     }
 }
 
-createAccount.addEventListener("click", goToLogin);
+createAccount.addEventListener("click", goToCreateAccount);

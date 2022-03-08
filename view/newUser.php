@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html>
    <body>
-   
+      <?php
+         session_start();
+      ?>
+      <form action="../controller/controller.php?register=true" method="post">
          email: <input type = "text" name = "email" id="email"/>
          username: <input type = "text" name = "username" id="username"/>
          password: <input type = "password" name = "password" id="password" />
          re-type password: <input type = "password" name = "password2" id="password2"/>
          <input type = "submit" id="create" value="submit" onclick=""/>
+      </form>
 
-      <div id="changeDiv"></div>
+      <a href="index.php"><input type="button" value="Home"></a>
 
-      <a href="index.html"><input type="button" value="Home"></a>
-      <script src="scripts/login.js"></script>
+   <?php
+	   if (isset($_SESSION['registerError'])){
+	      echo $_SESSION['registerError'];
+	      $_SESSION['registerError'] = null;
+	   }
+   ?>
    </body>
 </html>
